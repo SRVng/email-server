@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  AppName:
+    Default: email-server
+    Type: String
+
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: rust-cargolambda
+    Properties:
+      CodeUri: ./             
+      Handler: bootstrap
+      Runtime: provided.al2
+      FunctionUrlConfig:
+        AuthType: NONE
+      FunctionName: !Sub '${AppName}'
+      # Role: 
+      Timeout: 30
+      MemorySize: 256
+
+Outputs:
+  FunctionUrl:
+    Value: !GetAtt MyFunctionUrl.FunctionUrl
+    Export:
+      Name: !Sub 'lambda::${AWS::AccountId}:${AppName}'
