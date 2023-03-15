@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    concurrency: build-and-deploy
     steps:
     - uses: actions/checkout@v3
     - name: Format
@@ -24,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency: build-and-deploy
     steps:
     - uses: aws-actions/setup-sam@v2
       with:
