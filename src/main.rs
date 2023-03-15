@@ -8,5 +8,7 @@ mod router;
 async fn main() -> Result<(), lambda_http::Error> {
     dotenv().ok();
 
+    tracing_subscriber::fmt::init();
+
     lambda_http::run(router::app_router()).await
 }
