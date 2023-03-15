@@ -19,23 +19,23 @@ jobs:
     - name: Build
       run: cargo build --verbose --release
     - name: Run tests
-      run: cargo test --verbose
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: write
-  #   steps:
-  #   - uses: aws-actions/setup-sam@v2
-  #     with:
-  #       use-installer: true
-  #   - name: Configure AWS SSM credentials
-  #     uses: aws-actions/configure-aws-credentials@v2
-  #     with:
-  #       role-to-assume: arn:aws:iam::095213111338:role/GithubOIDCReadSSM
-  #       aws-region: ap-southeast-1
-  #   - name: Create .env
-  #     run: aws ssm get-parameters --name="$SSM_NAME" --query Parameters[0].Value | xargs printf > .env
-  #     env:
-  #       SSM_NAME: ${{ secrets.SSM_NAME }}    
-  #   - run: sam build -u -t sam_template.yaml
-  #   - run: sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" --no-comfirm-changeset --no-fail-on-empty-changeset
+      run: cargo test --verbose --release
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: aws-actions/setup-sam@v2
+      with:
+        use-installer: true
+    - name: Configure AWS SSM credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::095213111338:role/GithubOIDCReadSSM
+        aws-region: ap-southeast-1
+    - name: Create .env
+      run: aws ssm get-parameters --name="$SSM_NAME" --query Parameters[0].Value | xargs printf > .env
+      env:
+        SSM_NAME: ${{ secrets.SSM_NAME }}    
+    - run: sam build -u -t sam_template.yaml
+    - run: sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" --no-comfirm-changeset --no-fail-on-empty-changeset
