@@ -7,7 +7,7 @@ Parameters:
     Type: String
 
 Resources:
-  MyFunction:
+  AxumFunction:
     Type: AWS::Serverless::Function
     Metadata:
       BuildMethod: rust-cargolambda
@@ -24,6 +24,6 @@ Resources:
 
 Outputs:
   FunctionUrl:
-    Value: !GetAtt MyFunctionUrl.FunctionUrl
+    Value: !GetAtt AxumFunctionUrl.FunctionUrl
     Export:
       Name: !Sub 'lambda::${AWS::AccountId}:${AppName}'
