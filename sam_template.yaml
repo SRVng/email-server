@@ -12,8 +12,6 @@ Resources:
     Metadata:
       BuildMethod: rust-cargolambda
     Properties:
-      Architectures:
-        - arm64
       CodeUri: ./             
       Handler: bootstrap
       Runtime: provided.al2
