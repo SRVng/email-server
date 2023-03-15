@@ -62,5 +62,5 @@ jobs:
         SSM_NAME: ${{ secrets.SSM_NAME }}    
     - name: Release lambda
       run: |
-        sam build --beta-features -u -t sam_template.yaml 
+        sam build --beta-features -t sam_template.yaml 
         sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-comfirm-changeset --no-fail-on-empty-changeset
