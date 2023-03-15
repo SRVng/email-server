@@ -8,22 +8,10 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:      
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    concurrency: build-and-deploy
-    steps:
-    - uses: actions/checkout@v3
-    - name: Format
-      run: cargo fmt
-    - name: Build
-      run: cargo build --verbose --release
-    - name: Run tests
-      run: cargo test --verbose --release
   deploy:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: write
     concurrency: build-and-deploy
     steps:
@@ -41,3 +29,16 @@ jobs:
         SSM_NAME: ${{ secrets.SSM_NAME }}    
     - run: sam build -u -t sam_template.yaml
     - run: sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" --no-comfirm-changeset --no-fail-on-empty-changeset
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency: build-and-deploy
+    steps:
+    - uses: actions/checkout@v3
+    - name: Format
+      run: cargo fmt
+    - name: Build
+      run: cargo build --verbose --release
+    - name: Run tests
+      run: cargo test --verbose --release
