@@ -63,4 +63,4 @@ jobs:
     - name: Release lambda
       run: |
         sam build --beta-features -t sam_template.yaml 
-        sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-comfirm-changeset --no-fail-on-empty-changeset
+        sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-confirm-changeset --no-fail-on-empty-changeset
