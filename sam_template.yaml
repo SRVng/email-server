@@ -12,13 +12,15 @@ Resources:
     Metadata:
       BuildMethod: rust-cargolambda
     Properties:
+      Architecture:
+        - arm64
       CodeUri: ./             
       Handler: bootstrap
       Runtime: provided.al2
       FunctionUrlConfig:
         AuthType: NONE
       FunctionName: !Sub '${AppName}'
-      # Role: 
+      Role: arn:aws:iam::095213111338:role/EmailServer
       Timeout: 30
       MemorySize: 256
 
