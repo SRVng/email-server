@@ -42,5 +42,5 @@ jobs:
       run: aws ssm get-parameters --name="$SSM_NAME" --query Parameters[0].Value | xargs printf > .env
       env:
         SSM_NAME: ${{ secrets.SSM_NAME }}    
-    - run: sam build -u -t sam_template.yaml
+    - run: sam build --beta-features -u -t sam_template.yaml
     - run: sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" --no-comfirm-changeset --no-fail-on-empty-changeset
