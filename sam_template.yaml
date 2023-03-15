@@ -12,7 +12,7 @@ Resources:
     Metadata:
       BuildMethod: rust-cargolambda
     Properties:
-      Architecture:
+      Architectures:
         - arm64
       CodeUri: ./             
       Handler: bootstrap
