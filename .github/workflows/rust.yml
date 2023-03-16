@@ -60,7 +60,8 @@ jobs:
     - name: Release lambda
       run: |
         sam build --beta-features -t sam_template.yaml
-        ls -a
+        sudo apt install tree
+        tree .aws-sam
       # run: |
         # sam build --beta-features -t sam_template.yaml 
         # cargo clean
