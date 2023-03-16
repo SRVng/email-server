@@ -60,5 +60,4 @@ jobs:
     - name: Release lambda with cargo-lambda
       run: |
         cargo lambda build --release
-        cargo clean
         cargo lambda deploy --enable-function-url --s3-bucket rust-email-server
