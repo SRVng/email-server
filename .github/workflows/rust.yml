@@ -60,8 +60,10 @@ jobs:
     - name: Release lambda
       run: |
         sam build --beta-features -t sam_template.yaml
+        cargo clean
         sudo apt install tree
         tree .aws-sam
+        sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-confirm-changeset --no-fail-on-empty-changeset
       # run: |
         # sam build --beta-features -t sam_template.yaml 
         # cargo clean
