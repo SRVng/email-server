@@ -29,7 +29,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose --release
   deploy:
-    # needs: build
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -61,10 +61,4 @@ jobs:
       run: |
         sam build --beta-features -t sam_template.yaml
         cargo clean
-        sudo apt install tree
-        tree .aws-sam
         sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-confirm-changeset --no-fail-on-empty-changeset
-      # run: |
-        # sam build --beta-features -t sam_template.yaml 
-        # cargo clean
-        # sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-confirm-changeset --no-fail-on-empty-changeset

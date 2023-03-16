@@ -13,7 +13,7 @@ Resources:
       BuildMethod: rust-cargolambda
     Properties:
       CodeUri: ./             
-      Handler: bootstrap
+      Handler: .aws-sam/build/AxumFunction/bootstrap
       Runtime: provided.al2
       FunctionUrlConfig:
         AuthType: NONE
