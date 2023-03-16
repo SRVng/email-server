@@ -59,6 +59,6 @@ jobs:
         SSM_NAME: ${{ secrets.SSM_NAME }}    
     - name: Release lambda with cargo-lambda
       run: |
-        cargo lambda build
+        cargo lambda build --release
         cargo clean
         cargo lambda deploy --enable-function-url --s3-bucket rust-email-server
