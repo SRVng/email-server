@@ -57,8 +57,8 @@ jobs:
       run: aws ssm get-parameters --name="$SSM_NAME" --query Parameters[0].Value | xargs printf > .env
       env:
         SSM_NAME: ${{ secrets.SSM_NAME }}    
-    - name: Release lambda
+    - name: Release lambda with cargo-lambda
       run: |
-        sam build --beta-features -t sam_template.yaml
+        cargo lambda build
         cargo clean
-        sam deploy --stack-name="email-server" --s3-bucket="rust-email-server" -t sam_template.yaml --no-confirm-changeset --no-fail-on-empty-changeset
+        cargo lambda deploy --enable-function-url --s3-bucket rust-email-server
