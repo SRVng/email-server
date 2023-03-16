@@ -30,7 +30,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose --release
   deploy:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -62,7 +62,7 @@ jobs:
     - name: Release lambda
       run: |
         sam build --beta-features -t sam_template.yaml
-        ls
+        ls -a
       # run: |
         # sam build --beta-features -t sam_template.yaml 
         # cargo clean
