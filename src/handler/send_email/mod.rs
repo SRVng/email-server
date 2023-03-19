@@ -2,18 +2,12 @@ use axum::extract::Json;
 use axum::http::StatusCode;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
-use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::helper::email::{get_creds, get_message};
-
-#[derive(Deserialize)]
-pub struct IEmailBody {
-    pub html: String,
-}
+use crate::helper::email::{get_creds, get_message, IEmailBody};
 
 pub async fn send_email_handler(Json(body): Json<IEmailBody>) -> (StatusCode, Json<Value>) {
-    let email: Message = get_message(body.html);
+    let email: Message = get_message(body);
 
     let creds: Credentials = get_creds();
 
