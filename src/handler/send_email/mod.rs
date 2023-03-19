@@ -25,7 +25,7 @@ pub async fn send_email_handler(Json(body): Json<IEmailBody>) -> (StatusCode, Js
 
     // Send the email
     match mailer.send(&email) {
-        Ok(_) => (StatusCode::OK, Json(json!(""))),
+        Ok(_) => (StatusCode::OK, Json(json!(None::<String>))),
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(json!({ "error": e.to_string() })),
