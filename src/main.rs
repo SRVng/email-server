@@ -2,6 +2,7 @@ use dotenv::dotenv;
 use helper::get_address::get_address;
 use lambda_web::{is_running_on_lambda, run_hyper_on_lambda, LambdaError};
 
+mod env;
 mod handler;
 mod helper;
 mod router;
@@ -9,6 +10,8 @@ mod router;
 #[tokio::main]
 async fn main() -> Result<(), LambdaError> {
     dotenv().ok();
+
+    env::check_exist_key();
 
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::TRACE)
@@ -19,6 +22,7 @@ async fn main() -> Result<(), LambdaError> {
         false => {
             let addr = get_address();
             let log_message = format!("Server is running at {addr}");
+
             tracing::event!(tracing::Level::DEBUG, log_message);
 
             if let Err(error) = axum::Server::bind(&get_address())
