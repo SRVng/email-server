@@ -1,4 +1,3 @@
-use base64::{engine::general_purpose, Engine};
 use dotenv::var;
 use lettre::{
     message::{
@@ -30,9 +29,10 @@ impl IEmailBody {
         if let Some(img) = self.cid_body.clone() {
             let metadata = img.split(',').collect::<Vec<&str>>();
 
-            let decoded_base64 = general_purpose::STANDARD
-                .decode(metadata.get(1).expect("No base64 body found"))
-                .expect("Failed to decode image");
+            let decoded_base64 =
+                openssl::base64::decode_block(metadata.get(1).expect("No base64 body found"))
+                    .expect("Failed to decode image");
+
             Some(
                 SinglePart::builder()
                     .header(
